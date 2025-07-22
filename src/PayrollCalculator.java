@@ -7,8 +7,16 @@ public class PayrollCalculator extends UserInfo {
     boolean hasHealthInsurance;
 
     public static void main(String[] args ){
-        double emp1 = calculateWeeklyPay("FULL_TIME",45,10);
-        System.out.println(emp1);
+        //double emp1 = calculateWeeklyPay("FULL_TIME",45,10);
+        //System.out.println(emp1);
+        String[] types = {"FULL_TIME", "PART_TIME", "CONTRACTOR", "INTERN",
+                "FULL_TIME"};
+        double[] hours = {45, 20, 35, 15, 50};
+        double[] rates = {25.0, 18.0, 40.0, 12.0, 30.0};
+        String[] names = {"Alice", "Bob", "Charlie", "Diana", "Eve"};
+
+        processPayroll(types,hours,rates, names);
+
     }
 
     public PayrollCalculator(String name, int age, String email, boolean isActive, String employeeType, double hoursWorked,
@@ -82,6 +90,51 @@ public class PayrollCalculator extends UserInfo {
             tax -= 50;
         }
         return tax;
-
     }
+
+    public static void processPayroll(String[] employeeTypes, double[] hours, double[] rates, String[] names) {
+        int n = Math.min(Math.min(employeeTypes.length, hours.length), Math.min(rates.length, names.length));
+
+        double totalPay = 0;
+        int countOvertime = 0;
+
+        double highestPay = Double.MIN_VALUE;
+        double lowestPay = Double.MAX_VALUE;
+        String highestPaidEmployee = "";
+        String lowestPaidEmployee = "";
+
+        System.out.println("Name\t" + "Type\t"+ "Hours\t"+ "Rate\t"+ "Pay\t");
+
+        for (int i = 0; i < n; i++) {
+            double grossPay = calculateWeeklyPay(employeeTypes[i], hours[i], rates[i]);
+            totalPay += grossPay;
+
+            if (hours[i] > 40) {
+                countOvertime++;
+            }
+
+            if (grossPay > highestPay) {
+                highestPay = grossPay;
+                highestPaidEmployee = names[i];
+            }
+
+            if (grossPay < lowestPay) {
+                lowestPay = grossPay;
+                lowestPaidEmployee = names[i];
+            }
+
+            System.out.println(names[i] + "\t\t" + employeeTypes[i] + "\t\t" + hours[i] + "\t\t" + rates[i] +  "\t\t" + grossPay);
+
+
+        }
+
+        double averagePay = totalPay / n;
+
+        System.out.println("Payroll Statistics:");
+        System.out.println("Highest Paid: " + highestPaidEmployee + " ($" + highestPay + ")");
+        System.out.println("Lowest Paid: " + lowestPaidEmployee + " ($" + lowestPay + ")");
+        System.out.println("Average Pay: $" + String.format("%.2f", averagePay));
+        System.out.println("Overtime Workers (>40 hrs): " + countOvertime);
+    }
+
 }
