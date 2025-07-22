@@ -9,13 +9,13 @@ public class PayrollCalculator extends UserInfo {
     public static void main(String[] args ){
         //double emp1 = calculateWeeklyPay("FULL_TIME",45,10);
         //System.out.println(emp1);
-        String[] types = {"FULL_TIME", "PART_TIME", "CONTRACTOR", "INTERN",
+        /*String[] types = {"FULL_TIME", "PART_TIME", "CONTRACTOR", "INTERN",
                 "FULL_TIME"};
         double[] hours = {45, 20, 35, 15, 50};
         double[] rates = {25.0, 18.0, 40.0, 12.0, 30.0};
         String[] names = {"Alice", "Bob", "Charlie", "Diana", "Eve"};
 
-        processPayroll(types,hours,rates, names);
+        processPayroll(types,hours,rates, names);*/
 
     }
 
